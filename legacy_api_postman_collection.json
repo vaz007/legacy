@@ -1,0 +1,991 @@
+{
+    "info": {
+      "name": "Legacy APIs",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Legacy/UserManagement",
+        "item": [
+          {
+            "name": "Create User",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/users",
+                "host": ["{{baseUrl}}"],
+                "path": ["users"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"fullName\": \"John Doe\",\n  \"phoneNumber\": \"1234567890\",\n  \"alternatePhone\": \"0987654321\",\n  \"alternateEmail\": \"john.alt@example.com\",\n  \"role\": \"user\"\n}"
+              }
+            }
+          },
+          {
+            "name": "Get User Profile",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId",
+                "host": ["{{baseUrl}}"],
+                "path": ["users", ":userId"]
+              }
+            }
+          },
+          {
+            "name": "Update User Profile",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId",
+                "host": ["{{baseUrl}}"],
+                "path": ["users", ":userId"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"fullName\": \"John Updated\",\n  \"phoneNumber\": \"9876543210\"\n}"
+              }
+            }
+          },
+          {
+            "name": "Delete User",
+            "request": {
+              "method": "DELETE",
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId",
+                "host": ["{{baseUrl}}"],
+                "path": ["users", ":userId"]
+              }
+            }
+          },
+          
+          {
+            "name": "Update User Status",
+            "request": {
+              "method": "PATCH",
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId/status",
+                "host": ["{{baseUrl}}"],
+                "path": ["users", ":userId", "status"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"status\": \"paused\"\n}"
+              }
+            }
+          },
+          
+          {
+            "name": "Search Users",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/users/search?query=John",
+                "host": ["{{baseUrl}}"],
+                "path": ["users", "search"],
+                "query": [
+                  { "key": "query", "value": "John" }
+                ]
+              }
+            }
+          },
+          
+          {
+            "name": "Verify User Contact",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId/verify",
+                "host": ["{{baseUrl}}"],
+                "path": ["users", ":userId", "verify"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"type\": \"email\"\n}"
+              }
+            }
+          }
+          
+        ]
+      },
+      {
+        "name": "Legacy/Nominee",
+        "item": [
+    
+          {
+            "name": "Add Nominee",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId/nominees",
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "path": [
+                  "users",
+                  ":userId",
+                  "nominees"
+                ]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"fullName\": \"Jane Doe\",\n  \"relationship\": \"Spouse\",\n  \"address\": \"123 Main Street\"\n}"
+              }
+            },
+            "description": "Add a nominee for a user."
+          },
+          {
+            "name": "Get User Nominees",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId/nominees",
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "path": [
+                  "users",
+                  ":userId",
+                  "nominees"
+                ]
+              }
+            },
+            "description": "Get all nominees associated with a user."
+          },
+          {
+            "name": "Upload Death Certificate",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/nominees/:nomineeId/death-certificate",
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "path": [
+                  "nominees",
+                  ":nomineeId",
+                  "death-certificate"
+                ]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"certificateUrl\": \"https://example.com/certificate.pdf\"\n}"
+              }
+            },
+            "description": "Upload a death certificate for a nominee."
+          },
+          {
+            "name": "Verify Death Certificate",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/death-certificates/:certificateId/verify",
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "path": [
+                  "death-certificates",
+                  ":certificateId",
+                  "verify"
+                ]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"status\": \"verified\"\n}"
+              }
+            },
+            "description": "Verify a death certificate."
+          },
+          {
+            "name": "Grant Document Access",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId/documents/:documentId/access",
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "path": [
+                  "users",
+                  ":userId",
+                  "documents",
+                  ":documentId",
+                  "access"
+                ]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"nomineeId\": \"12345\",\n  \"accessStatus\": \"active\"\n}"
+              }
+            },
+            "description": "Grant a nominee access to a user's document."
+          },
+          {
+            "name": "Revoke Document Access",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId/documents/:documentId/access",
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "path": [
+                  "users",
+                  ":userId",
+                  "documents",
+                  ":documentId",
+                  "access"
+                ]
+              }
+            },
+            "description": "Revoke a nominee's access to a user's document."
+          },
+          {
+            "name": "Get Nominee Will Access",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/nominees/:nomineeId/will-access",
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "path": [
+                  "nominees",
+                  ":nomineeId",
+                  "will-access"
+                ]
+              }
+            },
+            "description": "Get access to the will if allowed by the user."
+          },
+          {
+            "name": "Create Alive Check",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId/alive-check",
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "path": [
+                  "users",
+                  ":userId",
+                  "alive-check"
+                ]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"status\": \"alive\"\n}"
+              }
+            },
+            "description": "Create an alive check entry for a user."
+          },
+          {
+            "name": "Update Alive Check Status",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId/alive-check",
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "path": [
+                  "users",
+                  ":userId",
+                  "alive-check"
+                ]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"status\": \"dead\"\n}"
+              }
+            },
+            "description": "Update the alive check status for a user."
+          },
+          {
+            "name": "Blacklist User",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId/blacklist",
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "path": [
+                  "users",
+                  ":userId",
+                  "blacklist"
+                ]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"reason\": \"Malpractice detected\"\n}"
+              }
+            },
+            "description": "Blacklist a user for malpractice."
+          },
+          {
+            "name": "Remove User from Blacklist",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId/blacklist",
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "path": [
+                  "users",
+                  ":userId",
+                  "blacklist"
+                ]
+              }
+            },
+            "description": "Remove a user from the blacklist."
+          },
+          {
+            "name": "Upload User Document",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId/documents",
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "path": [
+                  "users",
+                  ":userId",
+                  "documents"
+                ]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"documentType\": \"passport\",\n  \"documentUrl\": \"https://example.com/passport.pdf\",\n  \"encrypted\": true\n}"
+              }
+            },
+            "description": "Upload a document for a user."
+          },
+          {
+            "name": "Get User Documents",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId/documents",
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "path": [
+                  "users",
+                  ":userId",
+                  "documents"
+                ]
+              }
+            },
+            "description": "Get all documents uploaded by a user."
+          },
+          {
+            "name": "Create Will",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId/wills",
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "path": [
+                  "users",
+                  ":userId",
+                  "wills"
+                ]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"willDocumentUrl\": \"https://example.com/will.pdf\",\n  \"isValid\": true\n}"
+              }
+            },
+            "description": "Create a will for a user."
+          },
+          {
+            "name": "Get User Wills",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/users/:userId/wills",
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "path": [
+                  "users",
+                  ":userId",
+                  "wills"
+                ]
+              }
+            },
+            "description": "Retrieve all wills associated with a user."
+          }
+    ]
+      },
+      {
+        "name": "Legacy/Documents",
+        "item": [
+          {
+            "name": "Create Document (Single Upload)",
+            "request": {
+              "method": "POST",
+              "header": [],
+              "url": {
+                "raw": "https://api.example.com/users/:userId/documents",
+                "host": ["api", "example", "com"],
+                "path": ["users", ":userId", "documents"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\"documentType\": \"Passport\",\"documentUrl\": \"https://s3.amazonaws.com/bucket/doc1.pdf\",\"encrypted\": true,\"metadata\": {\"expiryDate\": \"2025-01-01\"},\"documentTypeID\": \"UUID\",\"documentMetadataID\": \"UUID\"}"
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Create Documents (Bulk Upload)",
+            "request": {
+              "method": "POST",
+              "header": [],
+              "url": {
+                "raw": "https://api.example.com/users/:userId/documents/bulk",
+                "host": ["api", "example", "com"],
+                "path": ["users", ":userId", "documents", "bulk"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "[{\"documentType\": \"Insurance\",\"documentUrl\": \"https://s3.amazonaws.com/bucket/doc2.pdf\",\"encrypted\": true,\"metadata\": {\"policyNumber\": \"ABC123\"},\"documentTypeID\": \"UUID\",\"documentMetadataID\": \"UUID\"}, {\"documentType\": \"Vehicle\",\"documentUrl\": \"https://s3.amazonaws.com/bucket/doc3.pdf\",\"encrypted\": false,\"metadata\": {\"registrationNumber\": \"MH12AB1234\"},\"documentTypeID\": \"UUID\",\"documentMetadataID\": \"UUID\"}]"
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Get User Documents",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "https://api.example.com/users/:userId/documents",
+                "host": ["api", "example", "com"],
+                "path": ["users", ":userId", "documents"]
+              }
+            },
+            "response": [
+              {
+                "documentType": "Passport",
+                "documentUrl": "https://s3.amazonaws.com/bucket/doc1.pdf",
+                "encrypted": true,
+                "createdAt": "2025-01-01T10:00:00Z",
+                "metadata": {
+                  "expiryDate": "2025-01-01"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Get Document Details",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "https://api.example.com/users/:userId/documents/:documentId",
+                "host": ["api", "example", "com"],
+                "path": ["users", ":userId", "documents", ":documentId"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Delete Document",
+            "request": {
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "https://api.example.com/users/:userId/documents/:documentId",
+                "host": ["api", "example", "com"],
+                "path": ["users", ":userId", "documents", ":documentId"]
+              }
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Legacy/DisputeManagement",
+        "description": "APIs for managing disputes regarding documents. Includes creating, updating, resolving disputes, and notifying users and admins about dispute status changes.",
+        "item": [
+          {
+            "name": "Create Dispute",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/disputes",
+                "host": ["{{baseUrl}}"],
+                "path": ["disputes"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"userId\": \"userId123\",\n  \"documentId\": \"doc123\",\n  \"type\": \"death_certificate\",\n  \"reason\": \"The document details are incorrect.\",\n  \"status\": \"pending\",\n  \"createdAt\": \"2025-01-08T12:00:00Z\"\n}"
+              }
+            },
+            "description": "Creates a new dispute for a document. The user provides the document ID, type, and the reason for the dispute, which is then stored with a 'pending' status."
+          },
+          {
+            "name": "Get All Disputes",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/disputes",
+                "host": ["{{baseUrl}}"],
+                "path": ["disputes"]
+              }
+            },
+            "description": "Fetches a list of all disputes, including their current status, document type, and user ID. This can be used by admins to review all disputes."
+          },
+          {
+            "name": "Get Dispute by ID",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/disputes/:disputeId",
+                "host": ["{{baseUrl}}"],
+                "path": ["disputes", ":disputeId"]
+              }
+            },
+            "description": "Retrieves detailed information about a specific dispute using its ID. This provides the full details, including status and reason for the dispute."
+          },
+          {
+            "name": "Update Dispute Status",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/disputes/:disputeId",
+                "host": ["{{baseUrl}}"],
+                "path": ["disputes", ":disputeId"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"status\": \"resolved\",\n  \"resolvedAt\": \"2025-01-08T10:30:00Z\",\n  \"resolution\": \"Document was verified and updated\"\n}"
+              }
+            },
+            "description": "Updates the status of a dispute, marking it as 'resolved' or any other relevant status. This API is used to finalize the dispute resolution process."
+          },
+          {
+            "name": "Delete Dispute",
+            "request": {
+              "method": "DELETE",
+              "url": {
+                "raw": "{{baseUrl}}/disputes/:disputeId",
+                "host": ["{{baseUrl}}"],
+                "path": ["disputes", ":disputeId"]
+              }
+            },
+            "description": "Deletes a dispute record from the system. This can be used if a dispute is found to be invalid or has been resolved outside the platform."
+          },
+          {
+            "name": "Notify User About Dispute Status",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/notifications/dispute-status/:disputeId",
+                "host": ["{{baseUrl}}"],
+                "path": ["notifications", "dispute-status", ":disputeId"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"userId\": \"userId123\",\n  \"type\": \"dispute_status\",\n  \"message\": \"Your dispute regarding document doc123 has been resolved.\",\n  \"status\": \"unread\",\n  \"createdAt\": \"2025-01-08T12:00:00Z\"\n}"
+              }
+            },
+            "description": "Sends a notification to the user regarding the status change of their dispute. Used to keep users informed about the outcome of their dispute."
+          },
+          {
+            "name": "Notify Admin About New Dispute",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/notifications/admin/dispute/:disputeId",
+                "host": ["{{baseUrl}}"],
+                "path": ["notifications", "admin", "dispute", ":disputeId"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"userId\": \"adminId123\",\n  \"type\": \"dispute\",\n  \"message\": \"A new dispute has been raised by userId123 regarding document doc123.\",\n  \"status\": \"unread\",\n  \"createdAt\": \"2025-01-08T12:00:00Z\"\n}"
+              }
+            },
+            "description": "Sends a notification to the admin about a new dispute that has been created. This helps admins to take timely action on disputes."
+          },
+          {
+            "name": "Resolve Dispute",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/disputes/:disputeId/resolve",
+                "host": ["{{baseUrl}}"],
+                "path": ["disputes", ":disputeId", "resolve"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"status\": \"resolved\",\n  \"resolution\": \"Document was verified and updated\",\n  \"resolvedAt\": \"2025-01-08T12:30:00Z\"\n}"
+              }
+            },
+            "description": "Finalizes the dispute resolution by marking it as 'resolved' and providing the resolution details. Admins can use this to close disputes."
+          },
+          {
+            "name": "Reject Dispute",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/disputes/:disputeId/reject",
+                "host": ["{{baseUrl}}"],
+                "path": ["disputes", ":disputeId", "reject"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"status\": \"rejected\",\n  \"rejectionReason\": \"Document matches the official records.\"\n}"
+              }
+            },
+            "description": "Rejects a dispute after verifying the document and providing a reason for rejection. Used to inform users when a dispute is found invalid."
+          }
+        ]
+      },
+      {
+        "name": "Legacy/Notifications",
+        "description": "APIs for managing notifications related to user actions, disputes, and document updates. These notifications keep users and admins informed about various activities and statuses.",
+        "item": [
+          {
+            "name": "Create Notification",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/notifications",
+                "host": ["{{baseUrl}}"],
+                "path": ["notifications"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"userId\": \"userId123\",\n  \"type\": \"dispute_status\",\n  \"message\": \"Your dispute has been resolved.\",\n  \"status\": \"unread\",\n  \"createdAt\": \"2025-01-08T12:00:00Z\"\n}"
+              }
+            },
+            "description": "Creates a new notification for a user, including type, message, and status. This is used to notify users about events such as dispute status updates or document changes."
+          },
+          {
+            "name": "Get All Notifications",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/notifications",
+                "host": ["{{baseUrl}}"],
+                "path": ["notifications"]
+              }
+            },
+            "description": "Fetches a list of all notifications for the current user. This allows users or admins to review all past notifications."
+          },
+          {
+            "name": "Get Notification by ID",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/notifications/:notificationId",
+                "host": ["{{baseUrl}}"],
+                "path": ["notifications", ":notificationId"]
+              }
+            },
+            "description": "Fetches detailed information about a specific notification using its ID. This helps users or admins to see the full context of a notification."
+          },
+          {
+            "name": "Update Notification Status",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/notifications/:notificationId",
+                "host": ["{{baseUrl}}"],
+                "path": ["notifications", ":notificationId"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"status\": \"read\"\n}"
+              }
+            },
+            "description": "Updates the status of a notification (e.g., from 'unread' to 'read'). This helps in tracking the notification status."
+          },
+          {
+            "name": "Delete Notification",
+            "request": {
+              "method": "DELETE",
+              "url": {
+                "raw": "{{baseUrl}}/notifications/:notificationId",
+                "host": ["{{baseUrl}}"],
+                "path": ["notifications", ":notificationId"]
+              }
+            },
+            "description": "Deletes a specific notification by its ID. This can be used to remove outdated or irrelevant notifications."
+          },
+          {
+            "name": "Notify User About Dispute Status",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/notifications/dispute-status/:disputeId",
+                "host": ["{{baseUrl}}"],
+                "path": ["notifications", "dispute-status", ":disputeId"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"userId\": \"userId123\",\n  \"type\": \"dispute_status\",\n  \"message\": \"Your dispute regarding document doc123 has been resolved.\",\n  \"status\": \"unread\",\n  \"createdAt\": \"2025-01-08T12:00:00Z\"\n}"
+              }
+            },
+            "description": "Sends a notification to the user about the status of their dispute. This helps keep the user informed about the resolution of their dispute."
+          },
+          {
+            "name": "Notify Admin About New Dispute",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/notifications/admin/dispute/:disputeId",
+                "host": ["{{baseUrl}}"],
+                "path": ["notifications", "admin", "dispute", ":disputeId"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"userId\": \"adminId123\",\n  \"type\": \"dispute\",\n  \"message\": \"A new dispute has been raised by userId123 regarding document doc123.\",\n  \"status\": \"unread\",\n  \"createdAt\": \"2025-01-08T12:00:00Z\"\n}"
+              }
+            },
+            "description": "Sends a notification to the admin about a new dispute raised by a user. This helps the admin take timely action on the dispute."
+          },
+          {
+            "name": "Notify User About Document Access",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/notifications/document-access/:documentId",
+                "host": ["{{baseUrl}}"],
+                "path": ["notifications", "document-access", ":documentId"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"userId\": \"userId123\",\n  \"type\": \"document_access\",\n  \"message\": \"You have been granted access to the document doc123.\",\n  \"status\": \"unread\",\n  \"createdAt\": \"2025-01-08T12:00:00Z\"\n}"
+              }
+            },
+            "description": "Notifies the user when they are granted access to a document. This is useful when document access permissions change."
+          },
+          {
+            "name": "Notify User About Document Sharing",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/notifications/document-sharing/:documentId",
+                "host": ["{{baseUrl}}"],
+                "path": ["notifications", "document-sharing", ":documentId"]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"userId\": \"userId123\",\n  \"type\": \"document_sharing\",\n  \"message\": \"Your document doc123 has been shared with another user.\",\n  \"status\": \"unread\",\n  \"createdAt\": \"2025-01-08T12:00:00Z\"\n}"
+              }
+            },
+            "description": "Sends a notification to the user when their document is shared with others. This ensures transparency in document sharing."
+          }
+        ]
+      },
+      
+      {
+        "name": "Legacy/Healthcheck",
+        "item": [
+          {
+            "name": "Healthcheck",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{baseUrl}}/healthcheck",
+                "host": ["{{baseUrl}}"],
+                "path": ["healthcheck"]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+  

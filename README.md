@@ -1,12 +1,13 @@
-# Project Template with Node.js, Express, Sequelize, ESLint, Prettier, and Husky
+# Legacy App
 
 ## Project Overview
-This project is a Node.js-based template featuring:
+This project is a idea featuring legacy app which will help users save all key components of life in a digital vault:
 - **Express**: Web framework for building APIs
 - **Sequelize**: ORM for PostgreSQL database integration
 - **ESLint**: Code quality and style checking (Airbnb style guide)
 - **Prettier**: Code formatting
 - **Husky**: Pre-commit hooks for linting and formatting
+- **PlantUML**: Designing the architecture and flowcharts
 
 ## Directory Structure
 ```plaintext

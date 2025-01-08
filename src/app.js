@@ -1,12 +1,12 @@
-const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const morgan = require('morgan');
+const express = require('express');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+const morgan = require('morgan');
 const { sequelize } = require('./config/index');
-const healthcheckRoutes = require('./routes/healthcheck');
 const errorHandler = require('./middleware/errorHandler');
+const healthcheckRoutes = require('./routes/healthcheck');
 require('dotenv').config(); // Load environment variables from .env
 
 const app = express();

@@ -1,0 +1,105 @@
+@startuml Architecture Overview
+
+!define CLOUDORANGE
+!define FONTCOLOR #666666
+!define ARROW #666666
+!define RECTANGLE #ffffff
+
+skinparam backgroundColor transparent
+skinparam defaultFontColor FONTCOLOR
+skinparam ArrowColor ARROW
+skinparam roundcorner 20
+
+skinparam component {
+    BackgroundColor RECTANGLE
+    BorderColor #2688d4
+    BorderThickness 2
+}
+
+skinparam database {
+    BackgroundColor RECTANGLE
+    BorderColor #2688d4
+}
+
+skinparam rectangle {
+    BackgroundColor RECTANGLE
+    BorderColor #2688d4
+    BorderThickness 2
+}
+
+' Actor and Client
+actor "User" as user
+rectangle "Client Applications" as client {
+    component "Web App" as web
+    component "Mobile App" as mobile
+}
+
+' Frontend Layer
+rectangle "Edge Network" as cdn {
+    component "CDN" as cdnComp
+    component "DDoS Protection" as ddos
+}
+
+' Gateway Layer
+rectangle "API Gateway Layer" as gateway {
+    component "Load Balancer" as lb
+    component "Rate Limiter" as rateLimiter
+    component "WAF" as waf
+}
+
+' Auth Layer
+rectangle "Security Layer" as security {
+    component "SuperTokens\nAuthentication" as auth
+    component "Casbin\nAuthorization" as authz
+}
+
+' Service Mesh
+rectangle "Service Mesh Layer" as serviceMesh {
+    component "Istio/Linkerd" as mesh
+    component "Service Discovery" as discovery
+    component "Circuit Breaker" as breaker
+}
+
+' Microservices
+rectangle "Microservices Layer" as services {
+    component "User Service" as userService
+    component "Document Service" as docService
+    component "Nominee Service" as nomService
+}
+
+' Data Layer
+rectangle "Data Layer" as data {
+    database "Primary DB" as db
+    database "Redis Cache" as cache
+    database "Read Replicas" as replica
+}
+
+' Connections
+user --> client
+client --> cdn
+cdn --> gateway
+gateway --> security
+security --> serviceMesh
+serviceMesh --> services
+services --> data
+
+' Detailed connections
+web --> cdnComp
+mobile --> cdnComp
+cdnComp --> lb
+lb --> waf
+waf --> rateLimiter
+rateLimiter --> auth
+auth --> authz
+authz --> mesh
+mesh --> discovery
+discovery --> userService
+discovery --> docService
+discovery --> nomService
+userService --> cache
+docService --> cache
+nomService --> cache
+cache --> db
+db --> replica
+
+@enduml
