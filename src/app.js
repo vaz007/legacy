@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const { sequelize } = require('./config/index');
 const errorHandler = require('./middleware/errorHandler');
 const healthcheckRoutes = require('./routes/healthcheck');
+const userRoutes = require('./routes/userRoute');
 require('dotenv').config(); // Load environment variables from .env
 
 const app = express();
@@ -37,21 +38,22 @@ sequelize
 // Sync models with the database (you can use { force: true }
 // in development to drop and recreate tables)
 sequelize
-  .sync()
+  .sync({ alter: true })
   .then(() => console.log('Database synced'))
   .catch((error) => console.error('Error syncing database:', error));
 
 // --- Routes ---
 app.use('/api/v1/healthcheck', healthcheckRoutes);
+app.use('/api/v1/user', userRoutes);
+
+// --- Global Error Handler ---
+app.use(errorHandler);
 
 // --- Route Not Found Handler ---
 app.use((req, res, next) => {
   const error = new Error('Route not found');
   error.status = 404;
-  next(error);
+  next(error); // Pass error to global error handler
 });
-
-// --- Global Error Handler ---
-app.use(errorHandler);
 
 module.exports = app;

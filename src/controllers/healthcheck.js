@@ -11,31 +11,3 @@ const healthcheck = (req, res) => {
 };
 
 module.exports = { healthcheck };
-
-// SAMPLE CONTROLLER
-
-/**
-  //// src/controllers/userController.js
-const asyncHandler = require("../utils/asyncHandler");
-const userService = require("../services/userService");
-
-// Example route to fetch user data
-const getUser = asyncHandler(async (req, res) => {
-  const userId = req.params.id;
-  const user = await userService.getUserById(userId);
-
-  if (!user) {
-    const error = new Error("User not found");
-    error.status = 404;
-    throw error;
-  }
-
-  res.status(200).json({
-    success: true,
-    data: user,
-  });
-});
-
-module.exports = { getUser };
-
-   */

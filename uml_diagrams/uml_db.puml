@@ -7,7 +7,7 @@ class User {
   - phoneNumber: String
   - alternatePhone: String
   - alternateEmail: String
-  - role: enum { 'user', 'admin', 'nominee', 'other' }
+  - role: enum { 'user', 'admin', 'other' }
   - emailVerified: Boolean
   - phoneVerified: Boolean
   - status: enum { 'active', 'paused', 'blacklisted' }

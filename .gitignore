@@ -46,9 +46,6 @@ build/
 # ESLint configuration files
 .eslintrc.js
 
-# Docker-related files (if not needed in the repo)
-Dockerfile
-docker-compose.yml
 
 # Other misc files
 npm-debug.log*
