@@ -1,8 +1,8 @@
 const User = require('../models/userModel'); // Your Sequelize model
 
-async function createUser({ email, fullName }) {
+async function createUser({ email, fullName, phoneNumber }) {
   try {
-    const newUser = await User.create({ email, fullName });
+    const newUser = await User.create({ email, fullName, phoneNumber });
     return newUser;
   } catch (error) {
     throw new Error(`Error creating user: ${error.message}`);

@@ -4,18 +4,22 @@ const asyncHandler = require('express-async-handler');
 const userService = require('../services/userService'); // Assuming you have this service
 
 const createUser = asyncHandler(async (req, res) => {
-  const { email, fullName } = req.body;
+  const { email, fullName, phoneNumber } = req.body;
 
   // Input validation
-  if (!email || !fullName) {
+  if (!email || !fullName || !phoneNumber) {
     // Directly throw an error (asyncHandler will catch it and pass it to the errorHandler)
-    const error = new Error('Email and Full Name are required');
+    const error = new Error('Email, Full Name & Phone Number are required');
     error.status = 400;
     throw error;
   }
 
   // userService.createUser() is an async function that creates a new user
-  const newUser = await userService.createUser({ email, fullName });
+  const newUser = await userService.createUser({
+    email,
+    fullName,
+    phoneNumber,
+  });
 
   // Respond with the created user
   return res.status(201).json({ user: newUser });

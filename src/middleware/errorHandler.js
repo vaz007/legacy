@@ -10,8 +10,7 @@ module.exports = (err, req, res, next) => {
   }
 
   // Log the error (ensure logger is correctly set up)
-  console.error(err); // This logs the error details to the console
-  logger.error('Error:', err.message);
+  logger.error('Error:', err);
 
   // Send a response to the client
   return res.status(err.status || 400).json({

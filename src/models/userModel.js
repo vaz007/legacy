@@ -16,6 +16,9 @@ const User = db.sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        isEmail: true,
+      },
     },
     fullName: {
       type: DataTypes.STRING,
@@ -26,11 +29,31 @@ const User = db.sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
       field: 'phone_number', // Maps to snake_case in the DB
+      unique: true,
+      validate: {
+        isNumeric: {
+          msg: 'Phone number must contain only digits.', // Custom error message for numeric validation
+        },
+        len: {
+          args: [10, 10], // Ensures the length is exactly 10 digits
+          msg: 'Phone number must be exactly 10 digits long.', // Custom error message for length validation
+        },
+      },
     },
     alternatePhone: {
       type: DataTypes.STRING,
       allowNull: true,
       field: 'alternate_phone', // Maps to snake_case in the DB
+      unique: true,
+      validate: {
+        isNumeric: {
+          msg: 'Alternate Phone number must contain only digits.', // Custom error message for numeric validation
+        },
+        len: {
+          args: [10, 10], // Ensures the length is exactly 10 digits
+          msg: 'Alternate Phone number must be exactly 10 digits long.', // Custom error message for length validation
+        },
+      },
     },
     alternateEmail: {
       type: DataTypes.STRING,
@@ -71,33 +94,26 @@ const User = db.sequelize.define(
   {
     tableName: 'users',
     timestamps: false, // Disable Sequelize's automatic timestamps (since you handle them manually)
-    // validate: {
-    //   // Custom validation for ensuring phoneNumber and email are not the same as alternatePhone and alternateEmail
-    //   phoneEmailNotSame() {
-    //     // Check if alternatePhone is defined and not the same as phoneNumber
-    //     const { phone_number, alternate_phone, email, alternate_email } =
-    //       this.dataValues;
+    validate: {
+      // Custom validation for ensuring phoneNumber and email are not the same as alternatePhone and alternateEmail
+      phoneEmailNotSame() {
+        // Check if alternatePhone is defined and not the same as phoneNumber
+        const { phoneNumber, alternatePhone, email, alternateEmail } = this;
 
-    //     console.log('Validation context:', {
-    //       phone_number,
-    //       alternate_phone,
-    //       email,
-    //       alternate_email,
-    //     });
-    //     if (alternate_phone !== undefined && phoneNumber === alternate_phone) {
-    //       throw new Error(
-    //         'Primary phone number cannot be the same as alternate phone number.',
-    //       );
-    //     }
+        if (alternatePhone && phoneNumber === alternatePhone) {
+          throw new Error(
+            'Primary phone number cannot be the same as alternate phone number.',
+          );
+        }
 
-    //     // Check if alternateEmail is defined and not the same as email
-    //     if (alternate_email !== undefined && email === alternate_email) {
-    //       throw new Error(
-    //         'Primary email cannot be the same as alternate email.',
-    //       );
-    //     }
-    //   },
-    // },
+        // Check if alternateEmail is defined and not the same as email
+        if (alternateEmail && email === alternateEmail) {
+          throw new Error(
+            'Primary email cannot be the same as alternate email.',
+          );
+        }
+      },
+    },
   },
 );
 
