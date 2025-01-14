@@ -1,0 +1,163 @@
+
+@startuml
+/' ADDED ENCRYPRT LIB NPM '/
+
+' User class with basic information
+class User {
+  + userId: ObjectId
+  - email: String
+  - fullName: String
+  - phoneNumber: String
+  - alternatePhone: String
+  - alternateEmail: String
+  - role: enum { 'user', 'admin', 'other' }
+  - emailVerified: Boolean
+  - phoneVerified: Boolean
+  - status: enum { 'active', 'paused', 'blacklisted' }
+  - createdAt: Date
+  - updatedAt: Date
+}
+
+' KYCDetails class
+class KYCDetails {
+  + kycDetailId: ObjectId
+  - userId: ObjectId
+  - fullName: String
+  - dateOfBirth: Date
+  - address: String
+  - idProof: String
+  - idProofType: String
+  - createdAt: Date
+}
+
+' Nominee class
+class Nominee {
+  + nomineeId: ObjectId
+  - fullName: String
+  - relationship: String
+  - address: String
+  - email: String                  // New field for the nominee's email
+  - nomineeOf: ObjectId            // Reference to the user making the nomination
+  - nomineeOfEmail: String         // Optional email reference for easier debugging
+  - createdAt: Date
+}
+
+' DeathCertificate class
+class DeathCertificate {
+  + certificateId: ObjectId
+  - nomineeId: ObjectId
+  - certificateUrl: String
+  - status: enum { 'pending', 'verified', 'rejected' }
+  - uploadedAt: Date
+}
+
+' Will class
+class Will {
+  + willId: ObjectId
+  - userId: ObjectId
+  - willDocumentUrl: String
+  - isValid: Boolean
+  - createdAt: Date
+}
+
+' UserDocument class
+class UserDocument {
+  + userDocumentId: ObjectId
+  - userId: ObjectId
+  - documentType: String
+  - documentUrl: String
+  - encrypted: Boolean
+  - createdAt: Date
+  - updatedAt: Date
+}
+
+' DocumentAccess class to manage sharing of documents with Nominee
+class DocumentAccess {
+  + documentAccessId: ObjectId
+  - nomineeId: ObjectId
+  - documentType: String
+  - documentUrl: String
+  - accessStatus: enum { 'active', 'revoked' }
+  - sharedAt: Date
+}
+
+' Blacklist class to track malpractice
+class Blacklist {
+  + blacklistId: ObjectId
+  - userId: ObjectId
+  - reason: String
+  - reportedAt: Date
+}
+
+' AliveCheck class to track user alive status
+class AliveCheck {
+  + aliveCheckId: ObjectId
+  - userId: ObjectId
+  - status: enum { 'alive', 'dead' }
+  - lastCheckedAt: Date
+}
+
+' AccessRequest class to track document access requests
+class AccessRequest {
+  + requestId: ObjectId
+  - nomineeId: ObjectId
+  - documentId: ObjectId
+  - requestStatus: enum { 'pending', 'approved', 'denied' }
+  - requestedAt: Date
+  - respondedAt: Date
+}
+
+' Notification class to notify users/nominees
+class Notification {
+  + notificationId: ObjectId
+  - userId: ObjectId
+  - message: String
+  - status: enum { 'unread', 'read' }
+  - createdAt: Date
+}
+
+' Dispute class to handle disputes related to death certificates
+class Dispute {
+  + disputeId: ObjectId
+  - certificateId: ObjectId
+  - reason: String
+  - status: enum { 'open', 'resolved', 'rejected' }
+  - createdAt: Date
+  - resolvedAt: Date
+}
+
+' ActivityLog class to track nominee activities
+class ActivityLog {
+  + logId: ObjectId
+  - nomineeId: ObjectId
+  - actionType: String
+  - details: String
+  - performedAt: Date
+}
+
+' EncryptionLib class for reusable encryption logic
+class EncryptionLib {
+  + encrypt(data: String): EncryptedPayload
+  + decrypt(payload: EncryptedPayload): String
+}
+
+' Relationships
+User "1" --> "0..*" KYCDetails : has
+User "1" --> "0..*" Nominee : has
+User "1" --> "0..*" UserDocument : has
+User "1" --> "0..*" Will : has
+User "1" --> "0..*" AliveCheck : tracks alive status
+User "1" --> "0..*" DocumentAccess : shares documents
+User "1" --> "0..*" Notification : receives
+Nominee "1" --> "0..*" DeathCertificate : uploads
+Nominee "0..*" --> "1" User : nomineeOf
+Nominee "1" --> "0..*" AccessRequest : makes
+Nominee "1" --> "0..*" ActivityLog : performs
+DeathCertificate "1" --> "1" User : tracks certificate
+DeathCertificate "1" --> "0..*" Dispute : has
+Blacklist "0..*" --> "1" User : tracks malpractice cases
+DocumentAccess "0..*" --> "1" Nominee : shares with
+AccessRequest "1" --> "1" UserDocument : requests access to
+UserDocument "0..*" --> "1" EncryptionLib : uses for encryption
+KYCDetails "0..*" --> "1" EncryptionLib : uses for encryption
+@enduml

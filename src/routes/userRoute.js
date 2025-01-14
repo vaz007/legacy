@@ -11,12 +11,12 @@ const router = express.Router();
 // POST /api/users
 router.post('/', createUser);
 // Get User by Email
-router.get('/:email', getUser);
+router.get('/:userId', getUser);
 
-// Update User by Email
-router.put('/:email', updateUser);
+// Update User by userId
+router.patch('/:userId', updateUser);
 
-// Delete User by Email
-router.delete('/:email', deleteUser);
+// Delete User by userId
+router.delete('/:userId', deleteUser);
 
 module.exports = router;

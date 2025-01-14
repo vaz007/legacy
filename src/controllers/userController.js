@@ -25,49 +25,25 @@ const createUser = asyncHandler(async (req, res) => {
   return res.status(201).json({ user: newUser });
 });
 
-// Get User by Email
+// Get User by UserId
 const getUser = asyncHandler(async (req, res) => {
-  const { email } = req.params; // Assuming email is passed as a parameter
-  const user = await userService.getUserByEmail(email);
-
-  // If user not found, throw an error
-  if (!user) {
-    const error = new Error(`User with email ${email} not found`);
-    error.status = 404;
-    throw error;
-  }
-
+  const { userId } = req.params; // Assuming userId is passed as a parameter
+  const user = await userService.getUserById(userId); // Fetch user by userId
   return res.status(200).json({ user });
 });
 
 // Update User by Email
 const updateUser = asyncHandler(async (req, res) => {
-  const { email } = req.params; // Assuming email is passed as a parameter
+  const { userId } = req.params; // Assuming userId is passed as a parameter
   const updatedData = req.body; // Assuming the body contains the updated user data
-  const updatedUser = await userService.updateUserByEmail(email, updatedData);
-
-  // If user not found, throw an error
-  if (!updatedUser) {
-    const error = new Error(`User with email ${email} not found`);
-    error.status = 404;
-    throw error;
-  }
-
+  const updatedUser = await userService.updateUserById(userId, updatedData);
   return res.status(200).json({ user: updatedUser });
 });
 
 // Delete User by Email
 const deleteUser = asyncHandler(async (req, res) => {
-  const { email } = req.params; // Assuming email is passed as a parameter
-  const result = await userService.deleteUserByEmail(email);
-
-  // If delete operation fails, throw an error
-  if (!result || !result.success) {
-    const error = new Error(`Failed to delete user with email ${email}`);
-    error.status = 400;
-    throw error;
-  }
-
+  const { userId } = req.params; // Assuming userId is passed as a parameter
+  const result = await userService.deleteUserById(userId);
   return res.status(200).json(result);
 });
 

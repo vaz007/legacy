@@ -8,10 +8,6 @@ module.exports = (err, req, res, next) => {
       message: 'Unknown error',
     });
   }
-
-  // Log the error (ensure logger is correctly set up)
-  logger.error('Error:', err);
-
   // Send a response to the client
   return res.status(err.status || 400).json({
     success: false,

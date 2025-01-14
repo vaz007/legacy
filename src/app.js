@@ -6,10 +6,13 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const { sequelize } = require('./config/index');
 const errorHandler = require('./middleware/errorHandler');
-const healthcheckRoutes = require('./routes/healthcheck');
-const userRoutes = require('./routes/userRoute');
 require('dotenv').config(); // Load environment variables from .env
+// Routes
+const healthcheckRoutes = require('./routes/healthcheck');
+const nomineeRoutes = require('./routes/nomineeRoute');
+const userRoutes = require('./routes/userRoute');
 
+// Express App
 const app = express();
 
 // --- Middleware ---
@@ -45,6 +48,7 @@ sequelize
 // --- Routes ---
 app.use('/api/v1/healthcheck', healthcheckRoutes);
 app.use('/api/v1/user', userRoutes);
+app.use('/api/v1/nominee', nomineeRoutes);
 
 // --- Global Error Handler ---
 app.use(errorHandler);

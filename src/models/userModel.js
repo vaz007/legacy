@@ -99,8 +99,14 @@ const User = db.sequelize.define(
       phoneEmailNotSame() {
         // Check if alternatePhone is defined and not the same as phoneNumber
         const { phoneNumber, alternatePhone, email, alternateEmail } = this;
-
-        if (alternatePhone && phoneNumber === alternatePhone) {
+        console.log(phoneNumber, alternatePhone, email, alternateEmail);
+        console.log(JSON.stringify(alternatePhone));
+        console.log(alternatePhone === null);
+        if (
+          alternatePhone &&
+          alternatePhone !== null &&
+          phoneNumber === alternatePhone
+        ) {
           throw new Error(
             'Primary phone number cannot be the same as alternate phone number.',
           );
